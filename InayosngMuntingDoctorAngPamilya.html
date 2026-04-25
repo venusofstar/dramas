@@ -9,7 +9,7 @@
 body {
   background:#111;
   color:#fff;
-  font-family:Arial;
+  font-family:Arial, sans-serif;
   margin:0;
 }
 
@@ -17,6 +17,12 @@ header {
   background:#e50914;
   padding:15px;
   text-align:center;
+}
+
+header button {
+  position:absolute;
+  left:15px;
+  top:15px;
 }
 
 .container {
@@ -32,8 +38,8 @@ video {
 }
 
 button {
-  margin:3px;
-  padding:6px 10px;
+  margin:4px;
+  padding:6px 12px;
   border:none;
   border-radius:5px;
   background:#333;
@@ -44,12 +50,18 @@ button {
 button:hover {
   background:#e50914;
 }
+
+#episodes {
+  max-width:700px;
+  margin:auto;
+}
 </style>
 
 <script>
 function playEpisode(ep){
-  document.getElementById("player").src =
-  "https://maflix.qzz.io/drama/series/tagalog-dubbed/Inayos%20ng%20Munting%20Doctor%20Ang%20Pamilya/ep" + ep + ".mp4";
+  const player = document.getElementById("player");
+  player.src = "https://maflix.qzz.io/drama/series/tagalog-dubbed/Inayos%20ng%20Munting%20Doctor%20Ang%20Pamilya/ep" + ep + ".mp4";
+  player.play();
 }
 
 window.onload = function(){
@@ -58,7 +70,11 @@ window.onload = function(){
   for(let i = 1; i <= 60; i++){
     const btn = document.createElement("button");
     btn.textContent = "Ep " + i;
-    btn.onclick = () => playEpisode(i);
+
+    btn.onclick = function(){
+      playEpisode(i);
+    };
+
     container.appendChild(btn);
   }
 }
