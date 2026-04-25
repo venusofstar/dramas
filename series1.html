@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+<meta charset="UTF-8">
+<title>Munting Doctor</title>
+
+<style>
+body {
+  background:#111;
+  color:#fff;
+  font-family:Arial;
+  margin:0;
+}
+
+header {
+  background:#e50914;
+  padding:15px;
+  text-align:center;
+}
+
+.container {
+  padding:20px;
+}
+
+video {
+  width:100%;
+  max-width:700px;
+  border-radius:10px;
+}
+
+button {
+  margin:3px;
+  padding:6px 10px;
+  border:none;
+  border-radius:5px;
+  background:#333;
+  color:#fff;
+  cursor:pointer;
+}
+
+button:hover {
+  background:#e50914;
+}
+</style>
+
+<script>
+function playEpisode(ep){
+  document.getElementById("player").src =
+  "https://maflix.qzz.io/drama/series/tagalog-dubbed/Inayos%20ng%20Munting%20Doctor%20Ang%20Pamilya/ep"+ep+".mp4";
+}
+</script>
+
+</head>
+<body>
+
+<header>
+<button onclick="history.back()">⬅ Back</button>
+<h2>Inayos ng Munting Doctor Ang Pamilya</h2>
+</header>
+
+<div class="container">
+
+<video id="player" controls
+src="https://maflix.qzz.io/drama/series/tagalog-dubbed/Inayos%20ng%20Munting%20Doctor%20Ang%20Pamilya/ep1.mp4">
+</video>
+
+<div>
+<script>
+for(let i=1;i<=60;i++){
+  document.write('<button onclick="playEpisode('+i+')">Ep '+i+'</button>');
+}
+</script>
+</div>
+
+</div>
+
+</body>
+</html>
