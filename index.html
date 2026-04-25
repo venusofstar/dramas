@@ -3,7 +3,181 @@
 <head>
 <meta charset="UTF-8">
 <title>Drama Series</title>
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+<meta charset="UTF-8">
+<title>Drama Series</title>
 
+<style>
+body {
+  background:#111;
+  color:#fff;
+  font-family:Arial;
+  margin:0;
+}
+
+/* HEADER */
+header {
+  background:#e50914;
+  padding:15px;
+  text-align:center;
+  font-size:24px;
+  font-weight:bold;
+}
+
+/* CONTAINER */
+.container {
+  padding:20px;
+}
+
+/* SERIES CARD */
+.series {
+  margin-bottom:50px;
+  max-width:700px;
+}
+
+/* POSTER STYLE */
+.poster {
+  position:relative;
+  border-radius:12px;
+  overflow:hidden;
+}
+
+.poster img {
+  width:100%;
+  height:200px;
+  object-fit:cover;
+}
+
+/* TITLE OVER IMAGE */
+.poster-title {
+  position:absolute;
+  bottom:10px;
+  left:10px;
+  font-size:18px;
+  font-weight:bold;
+  background:rgba(0,0,0,0.6);
+  padding:5px 10px;
+  border-radius:5px;
+}
+
+/* VIDEO */
+video {
+  width:100%;
+  margin-top:10px;
+  border-radius:10px;
+}
+
+/* EPISODES */
+.episodes {
+  margin-top:10px;
+}
+
+button {
+  margin:3px;
+  padding:6px 10px;
+  border:none;
+  border-radius:5px;
+  background:#333;
+  color:#fff;
+  cursor:pointer;
+}
+
+button:hover {
+  background:#e50914;
+}
+</style>
+
+<script>
+function playEpisode(videoId, baseUrl, ep) {
+  document.getElementById(videoId).src = baseUrl + "ep" + ep + ".mp4";
+}
+</script>
+
+</head>
+<body>
+
+<header>🎥 Drama Reels Style</header>
+
+<div class="container">
+
+<!-- SERIES 1 -->
+<div class="series">
+
+<div class="poster">
+  <img src="poster1.jpg">
+  <div class="poster-title">Inayos ng Munting Doctor Ang Pamilya</div>
+</div>
+
+<video id="vid1" controls
+src="https://maflix.qzz.io/drama/series/tagalog-dubbed/Inayos%20ng%20Munting%20Doctor%20Ang%20Pamilya/ep1.mp4">
+</video>
+
+<div class="episodes">
+<script>
+for(let i=1;i<=60;i++){
+  document.write(
+    '<button onclick="playEpisode(\'vid1\',\'https://maflix.qzz.io/drama/series/tagalog-dubbed/Inayos%20ng%20Munting%20Doctor%20Ang%20Pamilya/\','+i+')">Ep '+i+'</button>'
+  );
+}
+</script>
+</div>
+
+</div>
+
+<!-- SERIES 2 -->
+<div class="series">
+
+<div class="poster">
+  <img src="poster2.jpg">
+  <div class="poster-title">Adik sa Kanya Ang Pina-ara na Paborito ng CEO</div>
+</div>
+
+<video id="vid2" controls
+src="https://maflix.qzz.io/drama/series/tagalog-dubbed/Inayos%20ng%20Munting%20Doctor%20Ang%20Pamilya/ep1.mp4">
+</video>
+
+<div class="episodes">
+<script>
+for(let i=1;i<=80;i++){
+  document.write(
+    '<button onclick="playEpisode(\'vid2\',\'https://maflix.qzz.io/drama/series/tagalog-dubbed/Inayos%20ng%20Munting%20Doctor%20Ang%20Pamilya/\','+i+')">Ep '+i+'</button>'
+  );
+}
+</script>
+</div>
+
+</div>
+
+<!-- SERIES 3 -->
+<div class="series">
+
+<div class="poster">
+  <img src="poster3.jpg">
+  <div class="poster-title">Batang Asawa Walang Hanggang Pag-ibig</div>
+</div>
+
+<video id="vid3" controls
+src="https://maflix.qzz.io/drama/series/tagalog-dubbed/Batang%20Asawa%20Walang%20Hanggang%20Pag-ibig/ep1.mp4">
+</video>
+
+<div class="episodes">
+<script>
+for(let i=1;i<=73;i++){
+  document.write(
+    '<button onclick="playEpisode(\'vid3\',\'https://maflix.qzz.io/drama/series/tagalog-dubbed/Batang%20Asawa%20Walang%20Hanggang%20Pag-ibig/\','+i+')">Ep '+i+'</button>'
+  );
+}
+</script>
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>
 <style>
 body {
   background:#111;
