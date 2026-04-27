@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yaya Ng Bata CEO</title>
+
+<style>
+:root { --red:#e50914; }
+
+body {
+  margin:0;
+  background:#111;
+  color:#fff;
+  font-family:Arial, sans-serif;
+}
+
+header {
+  background:var(--red);
+  padding:15px;
+  text-align:center;
+  position:sticky;
+  top:0;
+}
+
+header button {
+  position:absolute;
+  left:10px;
+  top:10px;
+}
+
+.container {
+  max-width:1200px;
+  margin:auto;
+  padding:15px;
+}
+
+video {
+  width:100%;
+  max-height:75vh;
+  border-radius:10px;
+  background:black;
+  margin-bottom:15px;
+}
+
+#episodes {
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(70px,1fr));
+  gap:8px;
+}
+
+button {
+  padding:10px;
+  border:none;
+  border-radius:6px;
+  background:#333;
+  color:#fff;
+  cursor:pointer;
+}
+
+button:hover {
+  background:var(--red);
+}
+
+button.active {
+  background:var(--red);
+  transform:scale(1.05);
+}
+
+/* Mobile */
+@media(max-width:600px){
+  video { max-height:50vh; }
+  button { font-size:12px; padding:8px; }
+}
+
+/* Tablet */
+@media(min-width:601px) and (max-width:1024px){
+  #episodes { grid-template-columns: repeat(auto-fill, minmax(80px,1fr)); }
+}
+
+/* Desktop */
+@media(min-width:1025px){
+  #episodes { grid-template-columns: repeat(auto-fill, minmax(90px,1fr)); }
+}
+
+/* Smart TV */
+@media(min-width:1600px){
+  body { font-size:20px; }
+  button { font-size:18px; padding:15px; }
+}
+</style>
+
+<script>
+let currentEpisode = 1;
+const totalEpisodes = 80;
+const baseURL = "https://maflix.qzz.io/drama/series/tagalog-dubbed/Yaya%20Ng%20Bata%20CEO/";
+
+/* ✅ STRICT FORMAT: ep1–ep9 only */
+function playEpisode(ep){
+  const player = document.getElementById("player");
+  currentEpisode = ep;
+
+  // 🔥 No zero padding, no fallback
+  player.src = baseURL + "ep" + ep + ".mp4";
+
+  player.play();
+  highlightEpisode();
+  scrollToActive();
+}
+
+function highlightEpisode(){
+  const buttons = document.querySelectorAll("#episodes button");
+  buttons.forEach(btn => btn.classList.remove("active"));
+
+  if(buttons[currentEpisode - 1]){
+    buttons[currentEpisode - 1].classList.add("active");
+  }
+}
+
+function scrollToActive(){
+  const active = document.querySelector(".active");
+  if(active){
+    active.scrollIntoView({behavior:"smooth", block:"center"});
+  }
+}
+
+window.onload = function(){
+  const container = document.getElementById("episodes");
+  const player = document.getElementById("player");
+
+  for(let i = 1; i <= totalEpisodes; i++){
+    const btn = document.createElement("button");
+    btn.textContent = "Ep " + i;
+    btn.onclick = () => playEpisode(i);
+    container.appendChild(btn);
+  }
+
+  highlightEpisode();
+
+  /* Auto next episode */
+  player.addEventListener("ended", function(){
+    if(currentEpisode < totalEpisodes){
+      playEpisode(currentEpisode + 1);
+    }
+  });
+}
+</script>
+
+</head>
+<body>
+
+<header>
+<button onclick="history.back()">⬅</button>
+<h2>Inayos ng Munting Doctor Ang Pamilya</h2>
+</header>
+
+<div class="container">
+
+<video id="player" controls
+src="https://maflix.qzz.io/drama/series/tagalog-dubbed/Yaya%20Ng%20Bata%20CEO/ep1.mp4">
+</video>
+
+<div id="episodes"></div>
+
+</div>
+
+</body>
+</html>
