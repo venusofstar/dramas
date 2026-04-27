@@ -6,126 +6,87 @@
 <title>Munting Doctor</title>
 
 <style>
-:root {
-  --main-red:#e50914;
-}
+:root { --red:#e50914; }
 
 body {
+  margin:0;
   background:#111;
   color:#fff;
   font-family:Arial, sans-serif;
-  margin:0;
 }
 
-/* HEADER */
 header {
-  background:var(--main-red);
+  background:var(--red);
   padding:15px;
   text-align:center;
   position:sticky;
   top:0;
-  z-index:10;
 }
 
 header button {
   position:absolute;
   left:10px;
   top:10px;
-  font-size:16px;
 }
 
-/* LAYOUT */
 .container {
-  padding:15px;
   max-width:1200px;
   margin:auto;
+  padding:15px;
 }
 
-/* VIDEO */
 video {
   width:100%;
   max-height:75vh;
-  border-radius:12px;
-  margin-bottom:15px;
+  border-radius:10px;
   background:black;
+  margin-bottom:15px;
 }
 
-/* EPISODES GRID */
 #episodes {
   display:grid;
-  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(70px,1fr));
   gap:8px;
 }
 
-/* BUTTONS */
 button {
   padding:10px;
   border:none;
-  border-radius:8px;
+  border-radius:6px;
   background:#333;
   color:#fff;
   cursor:pointer;
-  font-size:14px;
-  transition:0.2s;
 }
 
 button:hover {
-  background:var(--main-red);
+  background:var(--red);
 }
 
 button.active {
-  background:var(--main-red);
+  background:var(--red);
   transform:scale(1.05);
 }
 
-/* 📱 PHONE */
-@media (max-width:600px){
-  button {
-    font-size:12px;
-    padding:8px;
-  }
-
-  video {
-    max-height:50vh;
-  }
+/* Mobile */
+@media(max-width:600px){
+  video { max-height:50vh; }
+  button { font-size:12px; padding:8px; }
 }
 
-/* 📲 TABLET */
-@media (min-width:601px) and (max-width:1024px){
-  #episodes {
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-  }
-
-  button {
-    font-size:14px;
-  }
+/* Tablet */
+@media(min-width:601px) and (max-width:1024px){
+  #episodes { grid-template-columns: repeat(auto-fill, minmax(80px,1fr)); }
 }
 
-/* 💻 DESKTOP */
-@media (min-width:1025px){
-  #episodes {
-    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-  }
-
-  button {
-    font-size:15px;
-  }
+/* Desktop */
+@media(min-width:1025px){
+  #episodes { grid-template-columns: repeat(auto-fill, minmax(90px,1fr)); }
 }
 
-/* 📺 SMART TV (big screens) */
-@media (min-width:1600px){
-  body {
-    font-size:20px;
-  }
-
-  button {
-    padding:15px;
-    font-size:18px;
-  }
-
-  video {
-    max-height:80vh;
-  }
+/* Smart TV */
+@media(min-width:1600px){
+  body { font-size:20px; }
+  button { font-size:18px; padding:15px; }
 }
 </style>
 
@@ -134,19 +95,13 @@ let currentEpisode = 1;
 const totalEpisodes = 60;
 const baseURL = "https://maflix.qzz.io/drama/series/tagalog-dubbed/Inayos%20ng%20Munting%20Doctor%20Ang%20Pamilya/";
 
+/* ✅ STRICT FORMAT: ep1–ep9 only */
 function playEpisode(ep){
   const player = document.getElementById("player");
   currentEpisode = ep;
 
-  let normal = baseURL + "ep" + ep + ".mp4";
-  let padded = baseURL + "ep" + (ep < 10 ? "0" + ep : ep) + ".mp4";
-
-  player.src = normal;
-
-  player.onerror = function(){
-    player.src = padded;
-    player.onerror = null;
-  };
+  // 🔥 No zero padding, no fallback
+  player.src = baseURL + "ep" + ep + ".mp4";
 
   player.play();
   highlightEpisode();
@@ -155,7 +110,6 @@ function playEpisode(ep){
 
 function highlightEpisode(){
   const buttons = document.querySelectorAll("#episodes button");
-
   buttons.forEach(btn => btn.classList.remove("active"));
 
   if(buttons[currentEpisode - 1]){
@@ -163,14 +117,10 @@ function highlightEpisode(){
   }
 }
 
-/* 🔥 Auto scroll to current episode */
 function scrollToActive(){
   const active = document.querySelector(".active");
   if(active){
-    active.scrollIntoView({
-      behavior:"smooth",
-      block:"center"
-    });
+    active.scrollIntoView({behavior:"smooth", block:"center"});
   }
 }
 
@@ -181,17 +131,13 @@ window.onload = function(){
   for(let i = 1; i <= totalEpisodes; i++){
     const btn = document.createElement("button");
     btn.textContent = "Ep " + i;
-
-    btn.onclick = function(){
-      playEpisode(i);
-    };
-
+    btn.onclick = () => playEpisode(i);
     container.appendChild(btn);
   }
 
   highlightEpisode();
 
-  /* 🔥 Auto next */
+  /* Auto next episode */
   player.addEventListener("ended", function(){
     if(currentEpisode < totalEpisodes){
       playEpisode(currentEpisode + 1);
